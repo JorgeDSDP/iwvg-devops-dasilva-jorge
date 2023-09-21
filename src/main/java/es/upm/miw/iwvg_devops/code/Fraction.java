@@ -1,29 +1,7 @@
 package es.upm.miw.iwvg_devops.code;
 
-/**
- * Conceptos: Las fracciones propias son aquellas cuyo numerador es menor que el denominador
- * <p>
- * Las fracciones impropias son aquellas cuyo numerador es mayor que el denominador
- * <p>
- * Dos fracciones son equivalentes cuando el producto de extremos (numerador de la primera por denominador de la segunda) es igual al
- * producto de medios (denominador de la primera por el numerador de la segunda)
- * <p>
- * Las fracciones irreducibles son aquellas que no se pueden simplificar, esto sucede cuando el numerador y el denominador son primos entre
- * sí
- * <p>
- * Reducir varias fracciones a común denominador consiste en convertirlas en otras equivalentes que tengan el mismo denominador
- * <p>
- * Comparar fracciones
- * <p>
- * Suma fracciones: En primer lugar se reducen los denominadores a común denominador, y se suman o se restan los numeradores de las
- * fracciones equivalentes obtenidas
- * <p>
- * Multiplicación: La multiplicación de dos fracciones es otra fracción que tiene: Por numerador el producto de los numeradores. Por
- * denominador el producto de los denominadores.
- * <p>
- * La división de dos fracciones es otra fracción que tiene: Por numerador el producto de los extremos. Por denominador el producto de los
- * medios. Invertir fraccion
- */
+import java.util.*;
+
 public class Fraction {
     private int numerator;
     private int denominator;
@@ -57,11 +35,82 @@ public class Fraction {
         return (double) numerator / denominator;
     }
 
+    public boolean isProper() {
+        return numerator < denominator;
+    }
+
+    public boolean isImproper() {
+        return numerator > denominator;
+    }
+
+    public boolean isEquivalent(Fraction fraction) {
+        return numerator * fraction.getDenominator() == denominator * fraction.getNumerator();
+    }
+
+    public Fraction add(Fraction fraction) {
+        int lcm = leastCommonMultiple(denominator, fraction.getDenominator());
+        int sumNominator = (lcm / denominator * numerator) + (lcm / fraction.getDenominator() * fraction.getNumerator());
+        return new Fraction(sumNominator, lcm);
+    }
+
+    public Fraction multiply(Fraction fraction) {
+        int multiplyNumerator;
+        int multiplyDenominator;
+
+        multiplyNumerator = fraction.getNumerator() * numerator;
+        multiplyDenominator = fraction.getDenominator() * denominator;
+        return new Fraction(multiplyNumerator, multiplyDenominator);
+    }
+
+    public Fraction divide(Fraction fraction) {
+        return multiply(invertFraction(fraction));
+    }
+
+    private Fraction invertFraction(Fraction fraction) {
+        return new Fraction(fraction.getDenominator(), fraction.getNumerator());
+    }
+
+    private int leastCommonMultiple(int number1, int number2) {
+        if (number1 == 0 || number2 == 0) {
+            return 0;
+        }
+        List<Integer> absoluteNumbersSorted = Arrays.asList(Math.abs(number1), Math.abs(number2));
+        Collections.sort(absoluteNumbersSorted);
+
+        int lcm = absoluteNumbersSorted.get(absoluteNumbersSorted.size() - 1);
+
+        while (lcm % absoluteNumbersSorted.get(0) != 0) {
+            lcm += absoluteNumbersSorted.get(absoluteNumbersSorted.size() - 1);
+        }
+        return lcm;
+    }
+
     @Override
     public String toString() {
         return "Fraction{" +
                 "numerator=" + numerator +
                 ", denominator=" + denominator +
                 '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + numerator;
+        result = 31 * result + denominator;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Fraction fraction = (Fraction) obj;
+        return Objects.equals(numerator, fraction.getNumerator())
+                && Objects.equals(denominator, fraction.getDenominator());
     }
 }
