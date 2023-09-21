@@ -1,5 +1,7 @@
 package es.upm.miw.iwvg_devops.code;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.*;
 
 public class Fraction {
@@ -32,7 +34,10 @@ public class Fraction {
     }
 
     public double decimal() {
-        return (double) numerator / denominator;
+        DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols();
+        otherSymbols.setDecimalSeparator('.');
+        DecimalFormat df = new DecimalFormat("0.000", otherSymbols);
+        return Double.parseDouble(df.format((double) numerator / denominator));
     }
 
     public boolean isProper() {
