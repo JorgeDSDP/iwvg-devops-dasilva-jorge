@@ -42,4 +42,11 @@ public class Searches {
                 .flatMap(user -> user.getFractions().stream())
                 .reduce(Fraction::multiply).orElse(null);
     }
+
+    public Stream<Double> findDecimalFractionByNegativeSignFraction() {
+        return new UsersDatabase().findAll()
+                .flatMap(user -> user.getFractions().stream())
+                .filter(fraction -> fraction.getNumerator() < 0 || fraction.getDenominator() < 0)
+                .map(Fraction::decimal);
+    }
 }

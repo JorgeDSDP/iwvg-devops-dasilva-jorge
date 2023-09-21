@@ -48,4 +48,9 @@ class SearchesTest {
         assertEquals(new Fraction(0, -360),
                 new Searches().findFractionMultiplicationByUserFamilyName("Blanco"));
     }
+
+    @Test
+    void testFindDecimalFractionByNegativeSignFraction() {
+        assertEquals(List.of(-0.2, -0.5, -0.0), new Searches().findDecimalFractionByNegativeSignFraction().toList());
+    }
 }
