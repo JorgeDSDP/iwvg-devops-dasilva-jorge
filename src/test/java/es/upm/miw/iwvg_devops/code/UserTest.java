@@ -10,7 +10,7 @@ import java.util.List;
 import static org.mockito.Mockito.*;
 
 
-public class UserTest {
+class UserTest {
     AutoCloseable openMocks;
     private User user;
 
