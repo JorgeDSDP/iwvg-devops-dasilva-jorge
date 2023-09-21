@@ -39,4 +39,51 @@ class FractionTest {
     void testDecimal() {
         Assertions.assertEquals(0.375, fraction.decimal());
     }
+
+    @Test
+    void testAddWithLCMBeingOneDenominator() {
+        Fraction fraction2 = new Fraction(2, 4);
+        Assertions.assertEquals(new Fraction(7, 8), fraction.add(fraction2));
+    }
+
+    @Test
+    void testAddWithLCMNotBeingOneDenominator() {
+        Fraction fraction2 = new Fraction(2, 7);
+        Assertions.assertEquals(new Fraction(37, 56), fraction.add(fraction2));
+    }
+
+    @Test
+    void testIsProperTrue() {
+        Assertions.assertTrue(fraction.isProper());
+    }
+
+    @Test
+    void testIsProperFalse() {
+        Assertions.assertFalse(new Fraction(8, 7).isProper());
+    }
+
+    @Test
+    void testIsImproperTrue() {
+        Assertions.assertTrue(new Fraction(8, 7).isImproper());
+    }
+
+    @Test
+    void testIsImproperFalse() {
+        Assertions.assertFalse(fraction.isImproper());
+    }
+
+    @Test
+    void testIsEquivalent() {
+        Assertions.assertTrue(fraction.isEquivalent(new Fraction(6, 16)));
+    }
+
+    @Test
+    void testMultiply() {
+        Assertions.assertEquals(new Fraction(6, 40), fraction.multiply(new Fraction(2, 5)));
+    }
+
+    @Test
+    void testDivide() {
+        Assertions.assertEquals(new Fraction(15, 16), fraction.divide(new Fraction(2, 5)));
+    }
 }
