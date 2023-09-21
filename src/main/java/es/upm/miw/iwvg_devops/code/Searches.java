@@ -45,7 +45,7 @@ public class Searches {
 
     public Stream<Double> findDecimalFractionByNegativeSignFraction() {
         return new UsersDatabase().findAll()
-                .flatMap(user -> user.getFractions().stream())
+                .flatMap(u -> u.getFractions().stream())
                 .filter(fraction -> fraction.getNumerator() < 0 || fraction.getDenominator() < 0)
                 .map(Fraction::decimal);
     }
