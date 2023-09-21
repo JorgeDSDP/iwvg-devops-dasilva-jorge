@@ -35,4 +35,11 @@ public class Searches {
                         .filter(Fraction::isProper))
                 .findFirst().orElse(null);
     }
+
+    public Fraction findFractionMultiplicationByUserFamilyName(String familyName) {
+        return new UsersDatabase().findAll()
+                .filter(user -> user.getFamilyName().equals(familyName))
+                .flatMap(user -> user.getFractions().stream())
+                .reduce(Fraction::multiply).orElse(null);
+    }
 }
