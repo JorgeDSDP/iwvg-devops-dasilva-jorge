@@ -36,4 +36,16 @@ class SearchesTest {
     void testFindFirstProperFractionByUserIdButNullInstead() {
         assertNull(new Searches().findFirstProperFractionByUserId("4"));
     }
+
+    @Test
+    void findFractionMultiplicationByUserFamilyNameOnlyOneUser() {
+        assertEquals(new Fraction(12, -240),
+                new Searches().findFractionMultiplicationByUserFamilyName("López"));
+    }
+
+    @Test
+    void findFractionMultiplicationByUserFamilyNameOnlyTwoUsers() {
+        assertEquals(new Fraction(0, -360),
+                new Searches().findFractionMultiplicationByUserFamilyName("Blanco"));
+    }
 }
