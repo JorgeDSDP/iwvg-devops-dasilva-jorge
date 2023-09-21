@@ -49,4 +49,12 @@ public class Searches {
                 .filter(fraction -> fraction.getNumerator() < 0 || fraction.getDenominator() < 0)
                 .map(Fraction::decimal);
     }
+
+    public Stream<Double> findDecimalImproperFractionByUserName(String name) {
+        return new UsersDatabase().findAll()
+                .filter(user -> user.getName().equals(name))
+                .flatMap(user -> user.getFractions().stream())
+                .filter(Fraction::isImproper)
+                .map(Fraction::decimal);
+    }
 }

@@ -53,4 +53,9 @@ class SearchesTest {
     void testFindDecimalFractionByNegativeSignFraction() {
         assertEquals(List.of(-0.2, -0.5, -0.0), new Searches().findDecimalFractionByNegativeSignFraction().toList());
     }
+
+    @Test
+    void testFindDecimalImproperFractionByUserName() {
+        assertEquals(List.of(2.0, 1.333), new Searches().findDecimalImproperFractionByUserName("Ana").toList());
+    }
 }
